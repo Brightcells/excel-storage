@@ -1,14 +1,23 @@
-# excel-storage
-Excel Storage
+# django-excel-storage
+Django Excel Storage
 
 ## Installation
 
-    pip install excel-storage
+    pip install django-excel-storage
 
 
 ## Usage
 
-    from excel_storage import ExcelStorage
+    from django_excel_storage import ExcelStorage
+
+    def excelfunc():
+        objs = SomeModel.objects.all()
+        fpath = ExcelStorage(objs).save()
+        
+        
+or
+
+    from django_excel_storage import ExcelStorage
 
     def excelfunc():
         data = [
@@ -26,7 +35,7 @@ Excel Storage
 
 or
 
-    from excel_storage import ExcelStorage
+    from django_excel_storage import ExcelStorage
 
     def excelfunc():
         data = [
@@ -39,7 +48,7 @@ or
 
 or
 
-    from excel_storage import ExcelStorage
+    from django_excel_storage import ExcelStorage
 
     def excelfunc():
         data = [
@@ -47,7 +56,72 @@ or
             [1, [2, 3]],
             [3, 4]
         ]
-        fpath = ExcelStorage(data, 'my_data', font='name SimSum', row_merge=True).save()
+        fpath = ExcelStorage(data, 'my_data', font='name SimSum', merge_type='row_merge').save()
+
+
+or
+
+    from django_excel_storage import ExcelStorage
+
+    def excelfunc():
+        headers = ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5']
+        data = [['Value 1', [['Value 2 Row 1', [['Value 3', 'Value 4', [['Value 5']]]]], ['Value 2 Row 2', [['Value 3 Row 1', 'Value 4 Row 1', [['Value 5 Row 1']]], ['Value 3 Row 2', 'Value 4 Row 2', [['Value 5 Row 2']]]]]]]]
+        fpath = ExcelStorage(data, 'my_data', font='name SimSum', merge_type='list_row_merge', headers=headers)
+
+
+or
+
+    from django_excel_storage import ExcelStorage
+
+    def excelfunc():
+        headers = ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5']
+        mapping = {
+            'field_key': 'Column 1',
+            'data_key': 'Children 1',
+            'next': {
+                'field_key': 'Column 2',
+                'data_key': 'Children 2',
+                'next': {
+                    'field_key': ['Column 3', 'Column 4'],
+                    'data_key': 'Children 3',
+                    'next': {
+                        'field_key': 'Column 5',
+                    }
+                }
+            }
+        }
+        data = [{
+            'Column 1': 'Value 1',
+            'Column 11': 'Value 11',
+            'Children 1': [{
+                'Column 2': 'Value 2 Row 1',
+                'Column 22': 'Value 22 Row 1',
+                'Children 2': [{
+                    'Column 3': 'Value 3',
+                    'Column 4': 'Value 4',
+                    'Children 3': {
+                        'Column 5': 'Value 5',
+                    }
+                }]
+            }, {
+                'Column 2': 'Value 2 Row 2',
+                'Column 22': 'Value 22 Row 2',
+                'Children 2': [{
+                    'Column 3': 'Value 3 Row 1',
+                    'Column 4': 'Value 4 Row 1',
+                    'Children 3': {
+                        'Column 5': 'Value 5 Row 1',
+                    }
+                }, {
+                    'Column 3': 'Value 3 Row 2',
+                    'Column 4': 'Value 4 Row 2',
+                    'Children 3': {
+                        'Column 5': 'Value 5 Row 2',
+                    }
+                }]
+            }]
+        }]
+        fpath = ExcelStorage(data, 'my_data', font='name SimSum', merge_type='dict_row_merge', mapping=mapping, headers=headers)
 
 
 ## Params
