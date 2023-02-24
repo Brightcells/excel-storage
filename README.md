@@ -1,23 +1,14 @@
-# django-excel-storage
-Django Excel Storage
+# excel-storage
+Excel Storage
 
 ## Installation
 
-    pip install django-excel-storage
+    pip install excel-storage
 
 
 ## Usage
 
-    from django_excel_storage import ExcelStorage
-
-    def excelfunc():
-        objs = SomeModel.objects.all()
-        fpath = ExcelStorage(objs).save()
-        
-        
-or
-
-    from django_excel_storage import ExcelStorage
+    from excel_storage import ExcelStorage
 
     def excelfunc():
         data = [
@@ -35,7 +26,7 @@ or
 
 or
 
-    from django_excel_storage import ExcelStorage
+    from excel_storage import ExcelStorage
 
     def excelfunc():
         data = [
@@ -48,7 +39,7 @@ or
 
 or
 
-    from django_excel_storage import ExcelStorage
+    from excel_storage import ExcelStorage
 
     def excelfunc():
         data = [
@@ -61,17 +52,17 @@ or
 
 or
 
-    from django_excel_storage import ExcelStorage
+    from excel_storage import ExcelStorage
 
     def excelfunc():
         headers = ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5']
         data = [['Value 1', [['Value 2 Row 1', [['Value 3', 'Value 4', [['Value 5']]]]], ['Value 2 Row 2', [['Value 3 Row 1', 'Value 4 Row 1', [['Value 5 Row 1']]], ['Value 3 Row 2', 'Value 4 Row 2', [['Value 5 Row 2']]]]]]]]
-        fpath = ExcelStorage(data, 'my_data', font='name SimSum', merge_type='list_row_merge', headers=headers)
+        fpath = ExcelStorage(data, 'my_data', font='name SimSum', merge_type='list_row_merge', headers=headers).save()
 
 
 or
 
-    from django_excel_storage import ExcelStorage
+    from excel_storage import ExcelStorage
 
     def excelfunc():
         headers = ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5']
@@ -121,7 +112,7 @@ or
                 }]
             }]
         }]
-        fpath = ExcelStorage(data, 'my_data', font='name SimSum', merge_type='dict_row_merge', mapping=mapping, headers=headers)
+        fpath = ExcelStorage(data, 'my_data', font='name SimSum', merge_type='dict_row_merge', mapping=mapping, headers=headers).save()
 
 
 ## Params

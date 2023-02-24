@@ -88,9 +88,8 @@ def save(self):
     file_name_ext = '_{0}'.format(datetime.datetime.now().strftime(self.format)) if self.format else ''
     final_file_name = ('%s%s.%s' % (self.output_name, file_name_ext, self.file_ext)).replace('"', '\"')
 
-    if default_storage.exists(final_file_name):
-        default_storage.delete(final_file_name)
-    default_storage.save(final_file_name, self.output)
+    with open(final_file_name, 'wb') as writer:
+        writer.write(self.output.getvalue())
 
     return final_file_name
 
