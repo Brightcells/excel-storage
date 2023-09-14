@@ -2,7 +2,6 @@
 
 import datetime
 
-from django.core.files.storage import default_storage
 from excel_base import (BytesIO, StringIO, as_csv, as_dict_row_merge_xls, as_list_row_merge_xls, as_row_merge_xls,
                         as_xls, is_py2, use_xls_or_not)
 
